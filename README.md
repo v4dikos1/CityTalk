@@ -16,6 +16,10 @@
 
 </ul>
 
+## Структа БД (будет изменяться)
+![image](https://github.com/v4dikos1/CityTalk/assets/72247526/8ffae3b1-95bf-47ce-b1bb-543f8b255fad)
+
+
 ## Деплой приложения
 
 ### Docker
