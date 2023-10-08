@@ -12,7 +12,7 @@
 <li>ASP.NET - сервер, API</li>
 <li>PostgreSql - СУБД</li>
 <li>Figma - дизайн</li>
-<li>SingnalR - технология для RealTime взаимодействия</li>
+<li>SignalR - технология для RealTime взаимодействия</li>
 
 </ul>
 
