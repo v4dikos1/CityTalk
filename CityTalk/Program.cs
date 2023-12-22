@@ -1,7 +1,10 @@
 using Application;
+using Application.Abstractions.Mapping;
 using Domain;
 using Infrastructure;
+using System.Reflection;
 using WebApi;
+using WebApi.StartupConfiguration;
 using WebApi.StartupConfiguration.Swagger;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,6 +18,13 @@ builder.Services.ConfigureOwnSwagger();
 builder.Services.RegisterDataAccessServices(builder.Configuration, builder.Environment.IsDevelopment());
 builder.Services.RegisterUseCasesServices();
 builder.Services.RegisterExternalInfrastructureServices(builder.Configuration);
+
+builder.Services.ConfigureOptions<EmailOptionsSetup>();
+
+builder.Services.AddAutoMapper(config =>
+{
+    config.AddProfile(new AssemblyMappingProfile(Assembly.Load("Application")));
+});
 
 builder.Services.AddCors(options =>
 {

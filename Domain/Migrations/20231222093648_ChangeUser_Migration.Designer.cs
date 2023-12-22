@@ -4,6 +4,7 @@ using Domain;
 using Domain.Entities.Json;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -12,9 +13,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Domain.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231222093648_ChangeUser_Migration")]
+    partial class ChangeUser_Migration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,9 +75,6 @@ namespace Domain.Migrations
                     b.Property<bool>("IsArchive")
                         .HasColumnType("boolean");
 
-                    b.Property<bool>("IsEmailConfirmed")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text");
@@ -94,17 +94,11 @@ namespace Domain.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<string>("VerificationToken")
-                        .HasColumnType("text");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AttachmentId");
 
                     b.HasIndex("Email")
-                        .IsUnique();
-
-                    b.HasIndex("VerificationToken")
                         .IsUnique();
 
                     b.ToTable("base_user", (string)null);

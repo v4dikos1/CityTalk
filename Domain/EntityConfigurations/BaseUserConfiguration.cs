@@ -16,17 +16,11 @@ internal class BaseUserConfiguration : IEntityTypeConfiguration<BaseUser>
         builder.Property(x => x.Surname).IsRequired();
         builder.Property(x => x.Patronymic).IsRequired(false);
 
-        builder.Property(x => x.Nickname).IsRequired();
-        builder.HasIndex(x => x.Nickname).IsUnique();
-
         builder.Property(x => x.Email).IsRequired();
         builder.HasIndex(x => x.Email).IsUnique();
 
         builder.Property(x => x.PasswordHash).IsRequired();
         builder.Property(x => x.PasswordSalt).IsRequired();
-
-        builder.Property(x => x.PhoneNumber).IsRequired(false);
-        builder.HasIndex(x => x.PhoneNumber).IsUnique();
 
         builder.Property(x => x.AttachmentId).IsRequired(false);
         builder.HasOne(x => x.Attachment)
@@ -37,5 +31,8 @@ internal class BaseUserConfiguration : IEntityTypeConfiguration<BaseUser>
         builder.Property(x => x.DateCreated).IsRequired();
         builder.Property(x => x.DateModified).IsRequired();
         builder.Property(x => x.IsArchive).IsRequired();
+
+        builder.HasIndex(u => u.VerificationToken).IsUnique();
+        builder.Property(u => u.IsEmailConfirmed).IsRequired();
     }
 }
