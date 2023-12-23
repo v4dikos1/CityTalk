@@ -13,6 +13,7 @@ public static class ServiceRegistrar
         services.AddScoped<IEmailService, ConfirmationEmailService>();
         services.AddTransient<ITokenService, TokenService>();
         services.AddSingleton<IVerificationService, VerificationService>();
+        services.AddScoped<ICurrentHttpContextAccessor, CurrentHttpContextAccessor>();
         return services;
     }
 }

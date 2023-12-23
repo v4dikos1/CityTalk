@@ -2,8 +2,9 @@ using Application;
 using Application.Abstractions.Mapping;
 using Domain;
 using Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Reflection;
-using WebApi;
+using WebApi.Middlewares;
 using WebApi.StartupConfiguration;
 using WebApi.StartupConfiguration.Swagger;
 
@@ -18,6 +19,10 @@ builder.Services.ConfigureOwnSwagger();
 builder.Services.RegisterDataAccessServices(builder.Configuration, builder.Environment.IsDevelopment());
 builder.Services.RegisterUseCasesServices();
 builder.Services.RegisterExternalInfrastructureServices(builder.Configuration);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer();
+builder.Services.AddAuthorization();
 
 builder.Services.ConfigureOptions<EmailOptionsSetup>();
 builder.Services.ConfigureOptions<JwtOptionsSetup>();
@@ -60,6 +65,7 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.UseMiddleware<ErrorHandlerMiddleware>();
+app.UseMiddleware<ContextSetterMiddleware>();
 
 app.MapControllers();
 

@@ -4,7 +4,7 @@ using Application.BaseModels;
 using Domain.Exceptions;
 using FluentValidation;
 
-namespace WebApi;
+namespace WebApi.Middlewares;
 
 public class ErrorHandlerMiddleware(RequestDelegate next, ILoggerFactory loggerFactory)
 {
