@@ -14,6 +14,7 @@ public class Address
     public string StreetFiasId { get; set; }
     public string House { get; set; }
     public string HouseFiasId { get; set; }
+    public string Kladr { get; set; }
     public string Apartment { get; set; }
     public string AddressFullName { get; set; }
 }

@@ -7,13 +7,15 @@ public class BaseUser : BaseEntity<Guid>, IHasArchiveAttribute, IHasTrackDateAtt
     public string Name { get; set; } = string.Empty;
     public string Surname { get; set; } = string.Empty;
     public string? Patronymic { get; set; }
-    public string? Nickname { get; set; } = string.Empty;
-    public string? Email { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
     public byte[] PasswordHash { get; set; } = null!;
     public byte[] PasswordSalt { get; set; } = null!;
+    public bool IsEmailConfirmed { get; set; } = false;
+    public string? VerificationToken { get; set; }
+    public string? RefreshToken { get; set; }
+    public DateTimeOffset? RefreshTokenExpiryTime { get; set; }
     public Guid? AttachmentId { get; set; }
     public Attachment? Attachment { get; set; }
-    public string? PhoneNumber { get; set; }
     public bool IsArchive { get; set; }
     public DateTimeOffset DateModified { get; set; }
     public DateTimeOffset DateCreated { get; set; }

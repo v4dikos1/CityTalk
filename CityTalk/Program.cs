@@ -1,25 +1,74 @@
+using Application;
+using Application.Abstractions.Mapping;
+using Domain;
+using Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Reflection;
+using WebApi.Middlewares;
+using WebApi.StartupConfiguration;
+using WebApi.StartupConfiguration.Swagger;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.Services.AddRazorPages();
+builder.Services.AddControllers();
+
+builder.Services.AddHealthChecks();
+
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+builder.Services.ConfigureOwnSwagger();
+
+builder.Services.RegisterDataAccessServices(builder.Configuration, builder.Environment.IsDevelopment());
+builder.Services.RegisterUseCasesServices();
+builder.Services.RegisterExternalInfrastructureServices(builder.Configuration);
+
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+    .AddJwtBearer();
+builder.Services.AddAuthorization();
+
+builder.Services.ConfigureOptions<EmailOptionsSetup>();
+builder.Services.ConfigureOptions<JwtOptionsSetup>();
+builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
+
+builder.Services.AddAutoMapper(config =>
+{
+    config.AddProfile(new AssemblyMappingProfile(Assembly.Load("Application")));
+});
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        build =>
+        {
+            build
+                .AllowAnyOrigin()
+                .SetIsOriginAllowedToAllowWildcardSubdomains()
+                .AllowAnyHeader()
+                .AllowAnyMethod()
+                .WithExposedHeaders("*");
+        });
+});
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
-app.UseStaticFiles();
+app.MapHealthChecks("/healthz");
 
-app.UseRouting();
+app.UseCors("AllowAllOrigins");
 
+app.ConfigureSwaggerUi();
+
+app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapRazorPages();
+app.UseMiddleware<ErrorHandlerMiddleware>();
+app.UseMiddleware<ContextSetterMiddleware>();
+
+app.MapControllers();
 
 app.Run();
