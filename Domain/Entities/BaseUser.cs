@@ -12,6 +12,8 @@ public class BaseUser : BaseEntity<Guid>, IHasArchiveAttribute, IHasTrackDateAtt
     public byte[] PasswordSalt { get; set; } = null!;
     public bool IsEmailConfirmed { get; set; } = false;
     public string? VerificationToken { get; set; }
+    public string? RefreshToken { get; set; }
+    public DateTimeOffset? RefreshTokenExpiryTime { get; set; }
     public Guid? AttachmentId { get; set; }
     public Attachment? Attachment { get; set; }
     public bool IsArchive { get; set; }

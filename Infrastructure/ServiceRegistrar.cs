@@ -11,7 +11,7 @@ public static class ServiceRegistrar
     {
         services.AddSingleton<IPasswordService, PasswordService>();
         services.AddScoped<IEmailService, ConfirmationEmailService>();
-        //services.AddTransient<ITokenService, TokenService>();
+        services.AddTransient<ITokenService, TokenService>();
         services.AddSingleton<IVerificationService, VerificationService>();
         return services;
     }

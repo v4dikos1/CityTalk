@@ -34,5 +34,7 @@ internal class BaseUserConfiguration : IEntityTypeConfiguration<BaseUser>
 
         builder.HasIndex(u => u.VerificationToken).IsUnique();
         builder.Property(u => u.IsEmailConfirmed).IsRequired();
+        builder.Property(x => x.RefreshToken).IsRequired(false);
+        builder.Property(x => x.RefreshTokenExpiryTime).IsRequired(false);
     }
 }

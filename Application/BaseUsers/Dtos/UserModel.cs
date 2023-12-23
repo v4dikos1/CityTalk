@@ -30,6 +30,5 @@ public class UserModel : IMapWith<BaseUser>
     {
         profile.CreateMap<BaseUser, UserModel>();
         profile.CreateMap<UserModel, BaseUser>();
-        profile.CreateMap<RegistrationUserModel, BaseUser>();
     }
 }

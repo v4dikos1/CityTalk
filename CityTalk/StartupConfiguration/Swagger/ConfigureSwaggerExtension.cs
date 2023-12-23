@@ -14,6 +14,31 @@ public static class ConfigureSwaggerExtension
             var xmlFiles = Directory.GetFiles(AppContext.BaseDirectory, "*.xml", SearchOption.TopDirectoryOnly)
                 .ToList();
             xmlFiles.ForEach(xmlFile => c.IncludeXmlComments(xmlFile));
+            c.AddSecurityDefinition($"AuthToken",
+                new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    BearerFormat = "JWT",
+                    Scheme = "bearer",
+                    Name = "Authorization",
+                    Description = "Authorization token"
+                });
+
+            c.AddSecurityRequirement(new OpenApiSecurityRequirement
+            {
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Reference = new OpenApiReference
+                        {
+                            Type = ReferenceType.SecurityScheme,
+                            Id = $"AuthToken",
+                        }
+                    },
+                    new string[] {}
+                }
+            });
         });
     }
 

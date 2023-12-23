@@ -20,6 +20,8 @@ builder.Services.RegisterUseCasesServices();
 builder.Services.RegisterExternalInfrastructureServices(builder.Configuration);
 
 builder.Services.ConfigureOptions<EmailOptionsSetup>();
+builder.Services.ConfigureOptions<JwtOptionsSetup>();
+builder.Services.ConfigureOptions<JwtBearerOptionsSetup>();
 
 builder.Services.AddAutoMapper(config =>
 {

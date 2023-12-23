@@ -1,8 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.Net;
+﻿using System.Net;
 using System.Text.Json;
 using Application.BaseModels;
 using Domain.Exceptions;
+using FluentValidation;
 
 namespace WebApi;
 
