@@ -32,7 +32,7 @@ public class EventCreatorController(ISender sender) : BaseController
     /// <param name="cancellationToken"></param>
     /// <returns></returns>
     [HttpGet]
-    public async Task<EventCreatorModel> GetEventCreator([FromQuery] GetEventCreatorQuery query,
+    public async Task<EventCreatorViewModel> GetEventCreator([FromQuery] GetEventCreatorQuery query,
         CancellationToken cancellationToken)
     {
         return await sender.Send(query, cancellationToken);

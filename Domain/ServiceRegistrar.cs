@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Npgsql;
 
 namespace Domain;
 
@@ -13,7 +14,9 @@ public static class ServiceRegistrar
     {
         services.AddDbContext<ApplicationDbContext>(options =>
         {
-            options.UseNpgsql(configuration.GetConnectionString("CityTalkContext"));
+            options.UseNpgsql(new NpgsqlDataSourceBuilder(configuration.GetConnectionString("CityTalkContext"))
+                    .EnableDynamicJson()
+                    .Build());
             if (isDevelopment)
             {
                 options.EnableSensitiveDataLogging();

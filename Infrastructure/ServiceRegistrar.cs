@@ -1,5 +1,7 @@
 ﻿using Application.Abstractions;
+using Application.Abstractions.DaData;
 using Infrastructure.Services;
+using Infrastructure.Services.DaData;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -14,6 +16,7 @@ public static class ServiceRegistrar
         services.AddTransient<ITokenService, TokenService>();
         services.AddSingleton<IVerificationService, VerificationService>();
         services.AddScoped<ICurrentHttpContextAccessor, CurrentHttpContextAccessor>();
+        services.AddTransient<IDaDataService, DaDataService>();
         return services;
     }
 }

@@ -15,10 +15,10 @@ internal class EventConfiguration : IEntityTypeConfiguration<Event>
         builder.Property(e => e.Name).IsRequired();
         builder.Property(e => e.Description).IsRequired();
         builder.Property(e => e.Address).IsRequired().HasColumnType("jsonb");
-        builder.Property(e => e.Coordinates).IsRequired();
+        builder.Property(e => e.Coordinates).IsRequired(false);
         builder.Property(e => e.CreatorId).IsRequired();
         builder.Property(e => e.StartDate).IsRequired();
-        builder.Property(e => e.EndDate).IsRequired();
+        builder.Property(e => e.EndDate).IsRequired(false);
         builder.Property(e => e.IsPeriodic).IsRequired();
         builder.Property(e => e.IsArchive).IsRequired();
         builder.Property(e => e.DateCreated).IsRequired();

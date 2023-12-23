@@ -8,9 +8,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Application.EventCreators.Handlers;
 
-internal class EventCreatorQueriesHandler(ApplicationDbContext dbContext, IMapper mapper) : IRequestHandler<GetEventCreatorQuery, EventCreatorModel>
+internal class EventCreatorQueriesHandler(ApplicationDbContext dbContext, IMapper mapper) : IRequestHandler<GetEventCreatorQuery, EventCreatorViewModel>
 {
-    public async Task<EventCreatorModel> Handle(GetEventCreatorQuery request, CancellationToken cancellationToken)
+    public async Task<EventCreatorViewModel> Handle(GetEventCreatorQuery request, CancellationToken cancellationToken)
     {
         var existedEventCreator =
             await dbContext.EventCreators.SingleOrDefaultAsync(x => x.OwnerId == request.UserId, cancellationToken);
@@ -19,6 +19,6 @@ internal class EventCreatorQueriesHandler(ApplicationDbContext dbContext, IMappe
             throw new ObjectNotFoundException(
                 $"Агрегатор мероприятий для пользователя с идентификатором {request.UserId} не найден!");
         }
-        return mapper.Map<EventCreatorModel>(existedEventCreator);
+        return mapper.Map<EventCreatorViewModel>(existedEventCreator);
     }
 }

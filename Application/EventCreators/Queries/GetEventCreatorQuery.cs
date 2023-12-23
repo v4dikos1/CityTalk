@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Application.EventCreators.Queries;
 
-public class GetEventCreatorQuery : IRequest<EventCreatorModel>
+public class GetEventCreatorQuery : IRequest<EventCreatorViewModel>
 {
     /// <summary>
     /// Идентификатор пользователя

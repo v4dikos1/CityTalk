@@ -13,9 +13,11 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddHealthChecks();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.ConfigureOwnSwagger();
+
 builder.Services.RegisterDataAccessServices(builder.Configuration, builder.Environment.IsDevelopment());
 builder.Services.RegisterUseCasesServices();
 builder.Services.RegisterExternalInfrastructureServices(builder.Configuration);
