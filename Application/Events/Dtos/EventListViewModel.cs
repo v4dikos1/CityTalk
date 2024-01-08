@@ -14,6 +14,6 @@ public class EventListViewModel : EventModel, IMapWith<Event>
     public new void Mapping(Profile profile)
     {
         profile.CreateMap<Event, EventListViewModel>()
-            .ForMember(d => d.Address, opt => opt.MapFrom(src => src.Address.AddressFullName));
+            .ForMember(d => d.Address, opt => opt.MapFrom(src => src.Address.City + " " + src.Address.Street + " " + src.Address.House));
     }
 }
