@@ -14,10 +14,10 @@ internal class EventQueriesHandler(ApplicationDbContext dbContext, IMapper mappe
 {
     public async Task<IEnumerable<EventListViewModel>> Handle(GetEventsListQuery request, CancellationToken cancellationToken)
     {
-        var userId = Guid.Parse(contextAccessor.UserId);
+        //var userId = Guid.Parse(contextAccessor.UserId);
         var eventCreator =
             await dbContext.EventCreators.SingleOrDefaultAsync(
-                x => x.Id == request.EventCreatorId && x.OwnerId == userId, cancellationToken);
+                x => x.Id == request.EventCreatorId, cancellationToken);
         if (eventCreator == null)
         {
             throw new ObjectNotFoundException(
